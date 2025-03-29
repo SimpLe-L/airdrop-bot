@@ -1,4 +1,6 @@
 # airdrop-tool
+https://docs.brush-bots.com/
+https://17lumao.gitbook.io/toolbox
 
 An Electron application with React and TypeScript
 
