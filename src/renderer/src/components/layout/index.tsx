@@ -6,13 +6,20 @@ import ElectronTitleBar from "../titleBar"
 const LayoutComp = () => {
 
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <main className="flex-1 flex flex-col p-2">
-        <ElectronTitleBar />
-        <Outlet />
-      </main>
-    </SidebarProvider>
+    <div className="flex flex-col h-screen">
+      <ElectronTitleBar />
+      <div className="flex-1">
+        <SidebarProvider>
+          <AppSidebar />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+
+        </SidebarProvider>
+      </div>
+
+    </div>
+
   )
 }
 

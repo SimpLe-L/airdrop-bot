@@ -30,6 +30,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { SidebarTrigger } from "@/components/ui/sidebar"
+import { Link } from "react-router-dom"
 
 const data = {
   navMain: [
@@ -41,19 +42,19 @@ const data = {
       items: [
         {
           title: "Twitter",
-          url: "#",
+          url: "/accounts/twitter",
         },
         {
           title: "Discord",
-          url: "#",
+          url: "/accounts/discord",
         },
         {
           title: "Telegram",
-          url: "#",
+          url: "/accounts/telegram",
         },
         {
-          title: "邮箱",
-          url: "#",
+          title: "Emails",
+          url: "/accounts/emails",
         },
       ],
     },
@@ -64,36 +65,22 @@ const data = {
       items: [
         {
           title: "通用配置",
-          url: "#",
+          url: "/configs/common",
         },
         {
           title: "代理配置",
-          url: "#",
+          url: "/configs/proxy",
         },
         {
           title: "钱包配置",
-          url: "#",
+          url: "/configs/wallets",
         },
       ],
     },
     {
       title: "插件市场",
-      url: "#",
-      icon: BookOpen,
-      // items: [
-      //   {
-      //     title: "挂机项目",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "测试网",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "签到项目",
-      //     url: "#",
-      //   }
-      // ],
+      url: "/plugins",
+      icon: BookOpen
     },
     {
       title: "项目中心",
@@ -102,15 +89,15 @@ const data = {
       items: [
         {
           title: "挂机项目",
-          url: "#",
+          url: "/projects/bot",
         },
         {
           title: "测试网",
-          url: "#",
+          url: "/projects/testnet",
         },
         {
           title: "签到项目",
-          url: "#",
+          url: "/projects/sign",
         }
       ],
     },
@@ -147,7 +134,7 @@ export function AppSidebar() {
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton tooltip={item.title} className="cursor-pointer">
                         {item.icon && <item.icon />}
-                        <span>{item.title}</span>
+                        <span className="truncate">{item.title}</span>
                         {
                           item.items && <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                         }
@@ -159,9 +146,10 @@ export function AppSidebar() {
                         {item.items?.map((subItem) => (
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton asChild>
-                              <a href={subItem.url}>
-                                <span>{subItem.title}</span>
-                              </a>
+                              <Link to={subItem.url}>
+                                <span className="truncate">{subItem.title}</span>
+                              </Link>
+
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
                         ))}

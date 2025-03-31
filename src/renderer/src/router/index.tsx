@@ -2,11 +2,31 @@ import { RouteObject, Navigate } from 'react-router-dom';
 import Loading from '@/components/loading';
 import MainLayout from '@/components/layout';
 import { lazy, Suspense } from 'react';
-import AuthGuard from './auth';
+// import AuthGuard from './auth';
 
 const Home = lazy(() => import('@/pages/home'));
 const Login = lazy(() => import('@/pages/login'));
-const ForBidden = lazy(() => import('@renderer/pages/forbidden'));
+const ForBidden = lazy(() => import('@/pages/forbidden'));
+
+// accounts
+const Twitter = lazy(() => import('@/pages/accountsCenter/twitter'));
+const Discord = lazy(() => import('@/pages/accountsCenter/discord'));
+const Telegram = lazy(() => import('@/pages/accountsCenter/telegram'));
+const Emails = lazy(() => import('@/pages/accountsCenter/emails'));
+
+// configs
+const CommonConfig = lazy(() => import('@/pages/configsCenter/common'));
+const WalletConfig = lazy(() => import('@/pages/configsCenter/wallet'));
+const ProxyConfig = lazy(() => import('@/pages/configsCenter/proxy'));
+
+// plugins
+const PluginMarket = lazy(() => import('@/pages/pluginMarket'));
+
+// project
+const BotProject = lazy(() => import('@/pages/projectCenter/bot'));
+const SignProject = lazy(() => import('@/pages/projectCenter/sign'));
+const TestnetProject = lazy(() => import('@/pages/projectCenter/testnet'));
+
 
 
 export const routes: RouteObject[] = [
@@ -18,13 +38,15 @@ export const routes: RouteObject[] = [
             {
                 path: 'home',
                 element: (
-                    <AuthGuard requiredPermissions={['home:view']}>
-                        <Suspense fallback={<Loading />}>
-                            <Home />
-                        </Suspense>
-                    </AuthGuard>
+                    <Suspense fallback={<Loading />}>
+                        <Home />
+                    </Suspense>
+                    // <AuthGuard requiredPermissions={['home']}>
+
+                    // </AuthGuard>
                 )
             },
+
         ]
     },
     {
@@ -36,7 +58,7 @@ export const routes: RouteObject[] = [
                 path: 'twitter',
                 element: (
                     <Suspense fallback={<Loading />}>
-                        <Home />
+                        <Twitter />
                     </Suspense>
                 )
             },
@@ -44,7 +66,7 @@ export const routes: RouteObject[] = [
                 path: 'discord',
                 element: (
                     <Suspense fallback={<Loading />}>
-                        <Home />
+                        <Discord />
                     </Suspense>
                 )
             },
@@ -52,7 +74,7 @@ export const routes: RouteObject[] = [
                 path: 'telegram',
                 element: (
                     <Suspense fallback={<Loading />}>
-                        <Home />
+                        <Telegram />
                     </Suspense>
                 )
             },
@@ -60,7 +82,7 @@ export const routes: RouteObject[] = [
                 path: 'email',
                 element: (
                     <Suspense fallback={<Loading />}>
-                        <Home />
+                        <Emails />
                     </Suspense>
                 )
             },
@@ -75,7 +97,7 @@ export const routes: RouteObject[] = [
                 path: 'common',
                 element: (
                     <Suspense fallback={<Loading />}>
-                        <Home />
+                        <CommonConfig />
                     </Suspense>
                 )
             },
@@ -83,15 +105,46 @@ export const routes: RouteObject[] = [
                 path: 'wallets',
                 element: (
                     <Suspense fallback={<Loading />}>
-                        <Home />
+                        <WalletConfig />
                     </Suspense>
                 )
             },
             {
-                path: 'fingerprint',
+                path: 'proxy',
                 element: (
                     <Suspense fallback={<Loading />}>
-                        <Home />
+                        <ProxyConfig />
+                    </Suspense>
+                )
+            }
+        ]
+    },
+    {
+        path: '/projects',
+        element: <MainLayout />,
+        children: [
+            { index: true, element: <Navigate to="/bot" replace /> },
+            {
+                path: 'bot',
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <BotProject />
+                    </Suspense>
+                )
+            },
+            {
+                path: 'testnet',
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <TestnetProject />
+                    </Suspense>
+                )
+            },
+            {
+                path: 'sign',
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <SignProject />
                     </Suspense>
                 )
             }
@@ -106,7 +159,7 @@ export const routes: RouteObject[] = [
                 path: 'plugin',
                 element: (
                     <Suspense fallback={<Loading />}>
-                        <Home />
+                        <PluginMarket />
                     </Suspense>
                 )
             },
