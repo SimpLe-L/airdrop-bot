@@ -20,7 +20,8 @@ const WalletConfig = lazy(() => import('@/pages/configsCenter/wallet'));
 const ProxyConfig = lazy(() => import('@/pages/configsCenter/proxy'));
 
 // plugins
-const PluginMarket = lazy(() => import('@/pages/pluginMarket'));
+const PluginMarket = lazy(() => import('@/pages/pluginMarket/hot'));
+const PluginDiy = lazy(() => import('@/pages/pluginMarket/diy'));
 
 // project
 const BotProject = lazy(() => import('@/pages/projectCenter/bot'));
@@ -154,12 +155,20 @@ export const routes: RouteObject[] = [
         path: '/plugins',
         element: <MainLayout />,
         children: [
-            { index: true, element: <Navigate to="/plugin" replace /> },
+            { index: true, element: <Navigate to="/hot" replace /> },
             {
-                path: 'plugin',
+                path: 'hot',
                 element: (
                     <Suspense fallback={<Loading />}>
                         <PluginMarket />
+                    </Suspense>
+                )
+            },
+            {
+                path: 'diy',
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <PluginDiy />
                     </Suspense>
                 )
             },

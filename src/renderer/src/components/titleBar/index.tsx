@@ -11,6 +11,7 @@ const ElectronTitleBar = () => {
   }, [])
 
   const handleMinimize = () => {
+    console.log("eeeeee")
     window.electron.ipcRenderer.send('window-minimize')
   }
 
@@ -27,15 +28,15 @@ const ElectronTitleBar = () => {
 
     <div className={
       cn(
-        "w-full flex items-center diy-title h-5",
-        !isMac && "justify-end"
+        "w-full flex items-center diy-title h-6 bg-sidebar",
+        !isMac && "justify-end pr-2"
       )
     }>
       {
-        !isMac && <div className="flex gap-2 items-center">
-          <Minus className="size-4" onClick={handleMinimize} />
-          <Maximize className="size-4" onClick={handleMaximize} />
-          <X className="size-4" onClick={handleClose} />
+        !isMac && <div className="flex gap-2 items-center no-drag">
+          <Minus className="size-4 cursor-pointer" onClick={handleMinimize} />
+          <Maximize className="size-4 cursor-pointer" onClick={handleMaximize} />
+          <X className="size-4 cursor-pointer" onClick={handleClose} />
         </div>
       }
 

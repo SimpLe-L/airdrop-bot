@@ -1,14 +1,6 @@
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
   ChevronRightIcon,
-  Command,
-  GalleryVerticalEnd,
-  Settings2,
-  SquareTerminal,
 } from "lucide-react"
-
 
 import {
   Sidebar,
@@ -32,79 +24,17 @@ import {
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Link } from "react-router-dom"
 
-const data = {
-  navMain: [
-    {
-      title: "账号管理",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "Twitter",
-          url: "/accounts/twitter",
-        },
-        {
-          title: "Discord",
-          url: "/accounts/discord",
-        },
-        {
-          title: "Telegram",
-          url: "/accounts/telegram",
-        },
-        {
-          title: "Emails",
-          url: "/accounts/emails",
-        },
-      ],
-    },
-    {
-      title: "配置中心",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "通用配置",
-          url: "/configs/common",
-        },
-        {
-          title: "代理配置",
-          url: "/configs/proxy",
-        },
-        {
-          title: "钱包配置",
-          url: "/configs/wallets",
-        },
-      ],
-    },
-    {
-      title: "插件市场",
-      url: "/plugins",
-      icon: BookOpen
-    },
-    {
-      title: "项目中心",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "挂机项目",
-          url: "/projects/bot",
-        },
-        {
-          title: "测试网",
-          url: "/projects/testnet",
-        },
-        {
-          title: "签到项目",
-          url: "/projects/sign",
-        }
-      ],
-    },
-  ]
-}
+import { asideData } from "@/utils/constantData"
+import { useState } from "react"
 
 export function AppSidebar() {
+
+  const [activeSubItem, setActiveSubItem] = useState(null);
+
+  const handleSubItemClick = (subItemTitle) => {
+    setActiveSubItem(subItemTitle);
+  };
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="flex flex-row diy-title">
@@ -123,7 +53,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {data.navMain.map((item) => (
+              {asideData.navMain.map((item) => (
                 <Collapsible
                   key={item.title}
                   asChild
@@ -135,10 +65,7 @@ export function AppSidebar() {
                       <SidebarMenuButton tooltip={item.title} className="cursor-pointer">
                         {item.icon && <item.icon />}
                         <span className="truncate">{item.title}</span>
-                        {
-                          item.items && <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                        }
-                        {/* <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" /> */}
+                        <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
@@ -146,10 +73,13 @@ export function AppSidebar() {
                         {item.items?.map((subItem) => (
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton asChild>
-                              <Link to={subItem.url}>
+                              <Link
+                                to={subItem.url}
+                                onClick={() => handleSubItemClick(subItem.title)}
+                                className={activeSubItem === subItem.title ? "!bg-blue-500 !text-white" : ""}
+                              >
                                 <span className="truncate">{subItem.title}</span>
                               </Link>
-
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
                         ))}
@@ -162,7 +92,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="flex flex-row justify-end gap-0">
+      <SidebarFooter className="flex flex-row justify-between gap-0">
         <SidebarTrigger className="cursor-pointer" />
       </SidebarFooter>
     </Sidebar>

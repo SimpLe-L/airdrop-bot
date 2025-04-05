@@ -125,4 +125,10 @@
 
 .diy-title {
   -webkit-app-region: drag;
+  /* pointer-events: none; */
+  /* app-region: drag; */
+}
+
+.diy-title .no-drag {
+  -webkit-app-region: no-drag
 }
